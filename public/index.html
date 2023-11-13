@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .button-container {
+        position: relative;
+        width: 300px;
+        height: 300px;
+      }
+
+      .button-container button {
+        position: absolute;
+        cursor: pointer;
+        outline: none;
+        border: none;
+        background: transparent;
+        pointer-events: none;
+        /* Desactiva los eventos del ratón para el botón */
+      }
+
+      .button-container button svg {
+        width: 100px;
+        height: 100px;
+        pointer-events: none;
+        /* Desactiva los eventos del ratón para el SVG */
+      }
+
+      .button-container button svg path {
+        pointer-events: auto;
+        /* Activa los eventos del ratón solo para el path */
+      }
+
+      /* Estilos para las posiciones de los botones */
+      #up {
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      #down {
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      #left {
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      #right {
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+ .night-mode {
+        background-color: #4D4D4D;
+        color: white;
+      }
+
+      .day-mode {
+        background-color: white;
+        color: #4D4D4D;
+      }
+
+      .night-mode .button-container button svg .primary-path {
+        fill: white;
+        stroke: white;
+      }
+
+      .night-mode .button-container button svg .secondary-path {
+        fill:#4D4D4D;
+        stroke: #4D4D4D;
+      }
+
+      .day-mode .button-container button svg .primary-path {
+        fill: #4D4D4D;
+        stroke: #4D4D4D;
+      }
+
+      .day-mode .button-container button svg .secondary-path {
+        fill: white;
+        stroke: white;
+      }
+
+      /* Botón de cambio de modo */
+      .mode-toggle {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 10px;
+        cursor: pointer;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  </head>
+  <body class="night-mode">
+    <div class="button-container">
+      <button id="up">
+        <svg  width="84" height="117" viewBox="0 0 84 117" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="primary-path" d="M1 20.9944V75L42 116L83 75V21C83 9.9543 74.0457 1 63 1H42H21C9.95431 1 1 9.94866 1 20.9944Z"/>
+          <path class="secondary-path" d="M42 16.5L60.1865 48H23.8135L42 16.5Z"  />
+        </svg>
+      </button>
+      <button id="down">
+        <svg width="84" height="117" viewBox="0 0 84 117" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="primary-path" d="M83 96.0056L83 42L42 1L1 42L1 96C1 107.046 9.95431 116 21 116L42 116H63C74.0457 116 83 107.051 83 96.0056Z" fill="white" stroke="white" />
+          <path class="secondary-path" d="M42 100.5L23.8135 69H60.1865L42 100.5Z" />
+        </svg>
+      </button>
+      <button id="left">
+        <svg width="117" height="84" viewBox="0 0 117 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="primary-path" d="M20.9944 83H75L116 42L75 1H21C9.9543 1 1 9.95431 1 21L1 42L1 63C1 74.0457 9.94866 83 20.9944 83Z" f/>
+          <path class="secondary-path" d="M16.5 42L48 23.8135V60.1865L16.5 42Z"  />
+        </svg>
+      </button>
+      <button id="right">
+        <svg width="117" height="84" viewBox="0 0 117 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path class="primary-path" d="M96.0056 1L42 1L1 42L42 83L96 83C107.046 83 116 74.0457 116 63V42L116 21C116 9.95431 107.051 1 96.0056 1Z"  />
+          <path class="secondary-path" d="M100.5 42L69 60.1865V23.8135L100.5 42Z"  />
+        </svg>
+      </button>
+    </div>
+    <button class="mode-toggle" onclick="toggleMode()">Cambiar Modo</button>
+
+    <script>
+
+    //http://192.168.18.62:1234/post
+    //https://nxsk39r2-1234.brs.devtunnels.ms/post
+    function sendPostRequest(command) {
+      axios.post('http://192.168.18.62:1234/post', {
+        direction: command
+      })
+      .then(response => console.log(response.data))
+      .catch(error => console.error('Error:', error))
+    }
+
+    function startSending(command) {
+     sendPostRequest(command)
+    }
+
+    function stopSending() {  
+
+      sendPostRequest('S')
+    }
+
+    function addEventListeners(buttonId, command) {
+      const button = document.getElementById(buttonId)
+      button.addEventListener('mousedown', () => startSending(command))
+      button.addEventListener('mouseup', stopSending)
+      button.addEventListener('mouseleave', stopSending)
+      button.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startSending(command);
+      });
+      button.addEventListener('touchend', stopSending)
+      button.addEventListener('touchcancel', stopSending) 
+    }
+
+
+    addEventListeners('up', 'F')
+    addEventListeners('down', 'B')
+    addEventListeners('right', 'R')
+    addEventListeners('left', 'L')
+
+
+
+    function toggleMode() {
+      var body = document.body;
+      body.classList.toggle("night-mode");
+      body.classList.toggle("day-mode");
+    }
+    </script>
+  </body>
+</html>

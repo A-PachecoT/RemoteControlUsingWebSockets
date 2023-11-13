@@ -1,0 +1,7 @@
+
+POST https://nxsk39r2-1234.brs.devtunnels.ms/post
+Content-Type: application/json
+
+{
+    "direction":"S"
+}
