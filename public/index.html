@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="styles.css">
     <style>
       .button-container {
-        position: relative;
+        position: absolute;
         width: 300px;
         height: 300px;
+        align-items: center;
+        justify-content: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        
       }
 
       .button-container button {
@@ -15,18 +22,62 @@
         border: none;
         background: transparent;
         pointer-events: none;
+        box-shadow: 0 0 1px rgba(0,0,0,0.5);
+       
+        border-radius: 30px;
+        
         /* Desactiva los eventos del ratón para el botón */
       }
+      @keyframes glow-animation {
+      from {
+        box-shadow: 0 0 1px #ffffff, 0 0 1px #ffffff, 0 0 2px #4f46e5, 0 0 5px #4f46e5, 0 0 6px #4f46e5, 0 0 7px #4f46e5, 0 0 68px #4f46e5, 0 0 9px #4f46e5;
+      }
+      to {
+        box-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 3px #4f46e5, 0 0 6px #4f46e5, 0 0 5px #4f46e5, 0 0 6px #4f46e5, 0 0 7px #4f46e5, 0 0 8px #4f46e5;
+      }
+    }
+    @keyframes glow-animation1 {
+      from {
+        box-shadow: 0 0 1px #ffffff, 0 0 1px #ffffff, 0 0 2px #c43b39, 0 0 5px #c43b39, 0 0 6px #c43b39, 0 0 7px #c43b39, 0 0 68px #c43b39, 0 0 9px #c43b39;
+      }
+      to {
+        box-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 3px #c43b39, 0 0 6px #c43b39, 0 0 5px #c43b39, 0 0 6px #c43b39, 0 0 7px #c43b39, 0 0 8px #c43b39;
+      }
+    }
+    @keyframes glow-animation2 {
+      from {
+        box-shadow: 0 0 1px #ffffff, 0 0 1px #ffffff, 0 0 2px #ff00de, 0 0 5px #ff00de, 0 0 6px #ff00de, 0 0 7px #ff00de, 0 0 68px #ff00de, 0 0 9px #ff00de;
+        
+
+      }
+      to {
+        box-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 3px #ff00de, 0 0 6px #ff00de, 0 0 5px #ff00de, 0 0 6px #ff00de, 0 0 7px #ff00de, 0 0 8px #ff00de;
+      }
+    }
+    @keyframes glow-animation3 {
+      
+      from{
+        box-shadow: 0 0 1px #ffffff, 0 0 1px #ffffff, 0 0 2px #6d28d9, 0 0 5px #6d28d9, 0 0 6px #6d28d9, 0 0 7px #6d28d9, 0 0 68px #6d28d9, 0 0 9px #6d28d9;
+      }
+      to{
+        box-shadow: 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 3px #6d28d9, 0 0 6px #6d28d9, 0 0 5px #6d28d9, 0 0 6px #6d28d9, 0 0 7px #6d28d9, 0 0 8px #6d28d9;
+      }
+    }
 
       .button-container button svg {
         width: 100px;
         height: 100px;
         pointer-events: none;
+        border-radius: 30px;
+        
+
+        
         /* Desactiva los eventos del ratón para el SVG */
       }
 
       .button-container button svg path {
         pointer-events: auto;
+        
         /* Activa los eventos del ratón solo para el path */
       }
 
@@ -35,49 +86,78 @@
         top: 0;
         left: 50%;
         transform: translateX(-50%);
+        color: #ff00de;
+        text-shadow: 0 0 10px #ff00de, 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 40px #ff00de, 0 0 80px #ff00de;
+      
+        animation: glow-animation2 1s ease-in-out infinite alternate;
+      }
+      #up:hover{
+        background-color: #ff00de;
       }
 
       #down {
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
+        text-shadow: 0 0 10px #c43b39, 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 40px #c43b39, 0 0 80px #c43b39;
+        animation: glow-animation1 5s ease-in-out infinite alternate;
+        
+      }
+      #down:hover{
+        background-color: #c43b39;
       }
 
       #left {
         left: 0;
         top: 50%;
         transform: translateY(-50%);
+        text-shadow: 0 0 10px #4f46e5, 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 40px #4f46e5, 0 0 80px #4f46e5;
+        animation: glow-animation 5s ease-in-out infinite alternate;
+      }
+      #left:hover{
+        background-color: #4f46e5;
       }
 
       #right {
         right: 0;
         top: 50%;
         transform: translateY(-50%);
+        
+        text-shadow: 0 0 10px #6d28d9, 0 0 1px #ffffff, 0 0 2px #ffffff, 0 0 40px #6d28d9, 0 0 80px #6d28d9;
+        animation: glow-animation3 5s ease-in-out infinite alternate;
+      }
+      #right:hover{
+        background-color: #6d28d9;
       }
  .night-mode {
-        background-color: #4D4D4D;
-        color: white;
+        background-color: black;
+        
       }
 
       .day-mode {
         background-color: white;
-        color: #4D4D4D;
+        
       }
 
       .night-mode .button-container button svg .primary-path {
-        fill: white;
-        stroke: white;
+        fill: gray;
+        stroke: gray;
+      }
+      .night-mode .button-container button svg .primary-path :hover {
+        fill: greenyellow;
+        stroke: greenyellow;
       }
 
       .night-mode .button-container button svg .secondary-path {
-        fill:#4D4D4D;
-        stroke: #4D4D4D;
+        fill: black;
+        stroke: black ;
       }
 
       .day-mode .button-container button svg .primary-path {
-        fill: #4D4D4D;
-        stroke: #4D4D4D;
+        fill: rgb(70, 67, 67);
+        stroke: rgb(70, 67, 67);
       }
+      
 
       .day-mode .button-container button svg .secondary-path {
         fill: white;
@@ -86,12 +166,22 @@
 
       /* Botón de cambio de modo */
       .mode-toggle {
-        position: fixed;
+        position: absolute;
         top: 10px;
         right: 10px;
         padding: 10px;
         cursor: pointer;
+
       }
+      @media (max-width: 400px) {
+        .mode-toggle {
+        position: absolute;
+        cursor: pointer;
+        top: 600px;
+        right: 140px;
+       }
+      }
+
     </style>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   </head>
@@ -103,7 +193,7 @@
           <path class="secondary-path" d="M42 16.5L60.1865 48H23.8135L42 16.5Z"  />
         </svg>
       </button>
-      <button id="down">
+      <button id="down" class>
         <svg width="84" height="117" viewBox="0 0 84 117" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path class="primary-path" d="M83 96.0056L83 42L42 1L1 42L1 96C1 107.046 9.95431 116 21 116L42 116H63C74.0457 116 83 107.051 83 96.0056Z" fill="white" stroke="white" />
           <path class="secondary-path" d="M42 100.5L23.8135 69H60.1865L42 100.5Z" />
@@ -129,7 +219,7 @@
     //http://192.168.18.62:1234/post
     //https://nxsk39r2-1234.brs.devtunnels.ms/post
     function sendPostRequest(command) {
-      axios.post('http://192.168.18.62:1234/post', {
+      axios.post('http://10.1.18.114:1234/post', {
         direction: command
       })
       .then(response => console.log(response.data))
@@ -163,6 +253,36 @@
     addEventListeners('down', 'B')
     addEventListeners('right', 'R')
     addEventListeners('left', 'L')
+    
+
+    
+    document.addEventListener('keydown', function(event) {
+  switch(event.key) {
+    case 'w':
+      startSending('F');
+      break;
+    case 's':
+      startSending('B');
+      break;
+    case 'a':
+      startSending('L');
+      break;
+    case 'd':
+      startSending('R');
+      break;
+  }
+});
+
+document.addEventListener('keyup', function(event) {
+  switch(event.key) {
+    case 'w':
+    case 's':
+    case 'a':
+    case 'd':
+      stopSending();
+      break;
+  }
+});
 
 
 
